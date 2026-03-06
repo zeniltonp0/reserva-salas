@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import router from '@/router';
 import axios from 'axios';
 import { reactive, ref } from 'vue';
 
@@ -12,9 +13,11 @@ import { reactive, ref } from 'vue';
     });
 
     const handleRegister = async () => {
-        try{
+        console.log('teste')
+        try {
             await axios.post('http://localhost:8000/api/register', form);
             alert('Cadastro realizado com sucesso!');
+            router.push({ name: 'Login' });
         }
         catch (erro) {
             console.log('Erro no cadastro', erro);
@@ -24,7 +27,7 @@ import { reactive, ref } from 'vue';
 </script>
 
 <template>
-    <form class="space-y-6">
+    <form @submit.prevent="handleRegister" class="space-y-6">
         <h1 class="text-2xl text-center">Registro</h1>
         <div class="block text-sm font-medium text-gray-700">
             <label>Nome</label>
@@ -46,7 +49,7 @@ import { reactive, ref } from 'vue';
             <label>Senha</label>
             <input
             v-model="form.password"
-            type="text"
+            type="password"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
         </div>
@@ -54,7 +57,6 @@ import { reactive, ref } from 'vue';
             <label>Tipo de Usuário</label>
             <select
             v-model="form.role"
-            type="text"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
                 <option value="user">Usuário</option>
