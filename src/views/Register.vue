@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { reactive, ref } from 'vue';
 
-    const erro = ref(true);
+    const erro = ref(null);
    
     const form = reactive({
         name: '',
@@ -28,25 +28,33 @@ import { reactive, ref } from 'vue';
         <h1 class="text-2xl text-center">Registro</h1>
         <div class="block text-sm font-medium text-gray-700">
             <label>Nome</label>
-            <input type="text" 
+            <input
+            v-model="form.name"
+            type="text" 
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
         </div>
         <div class="block text-sm font-medium text-gray-700">
             <label>Email</label>
-            <input type="text"
+            <input 
+            v-model="form.email"
+            type="text"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
         </div>
         <div class="block text-sm font-medium text-gray-700">
             <label>Senha</label>
-            <input type="text"
+            <input
+            v-model="form.password"
+            type="text"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
         </div>
         <div class="block text-sm font-medium text-gray-700">
             <label>Tipo de Usuário</label>
-            <select type="text"
+            <select
+            v-model="form.role"
+            type="text"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
                 <option value="user">Usuário</option>
@@ -57,7 +65,8 @@ import { reactive, ref } from 'vue';
         <div v-if="erro" class="bg-red-50 p-2 px-4 rounded-md border border-red-200">
             <p class="text-red-600 text-sm font-medium">{{ erro }}</p>
         </div>
-        <button>
+        <button type="submit"
+                class="w-full flex justify-center py-2 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer">
             Criar conta
         </button>
     </form>
