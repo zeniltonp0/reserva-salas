@@ -1,3 +1,5 @@
 <template>
-    register
+    <aside>
+        register
+    </aside>
 </template>
