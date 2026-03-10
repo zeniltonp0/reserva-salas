@@ -6,10 +6,12 @@ import { useAuthStore } from '@/stores/auth';
 const router = useRouter();
 const auth = useAuthStore();
 
+const erro = ref('');
 const email = ref('');
 const password = ref('');
 
 const handleLogin = async () => {
+    console.log('aqui')
   const sucesso = await auth.login(email.value, password.value);
   
   if (sucesso) {
