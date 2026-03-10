@@ -1,26 +1,22 @@
 <script setup lang="ts">
-import router from '@/router';
-import axios from 'axios';
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
-    const erro = ref(null);
-   
-    const form = reactive({
-        email: '',
-        password: '',
-    });
+const router = useRouter();
+const auth = useAuthStore();
 
-    const handleLogin = async () => {
-        try {
-            await axios.post('http://localhost:8000/api/login', form);
-            alert('Login realizado com sucesso!');
-            router.push({ name: 'Home' });
-        }
-        catch (erro) {
-            console.log('Erro no login', erro);
-            erro.value = erro.response?.data?.message || 'Erro no login';
-        }
-    }
+const email = ref('');
+const password = ref('');
+
+const handleLogin = async () => {
+  const sucesso = await auth.login(email.value, password.value);
+  
+  if (sucesso) {
+    alert('Login realizado com sucesso!');
+    router.push('/');
+  }
+};
 </script>
 
 <template>
@@ -29,7 +25,7 @@ import { reactive, ref } from 'vue';
         <div class="block text-sm font-medium text-gray-700">
             <label>Email</label>
             <input 
-            v-model="form.email"
+            v-model="email"
             type="text"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
@@ -37,7 +33,7 @@ import { reactive, ref } from 'vue';
         <div class="block text-sm font-medium text-gray-700">
             <label>Senha</label>
             <input
-            v-model="form.password"
+            v-model="password"
             type="password"
             required
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 outline-blue-500">
