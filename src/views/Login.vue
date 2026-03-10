@@ -14,7 +14,7 @@ const handleLogin = async () => {
   
   if (sucesso) {
     alert('Login realizado com sucesso!');
-    router.push('/');
+    router.push({ name: "Home" });
   }
 };
 </script>
